@@ -379,6 +379,9 @@ class Zend_Cache_Backend_File extends Zend_Cache_Backend implements Zend_Cache_B
      */
     public function getFillingPercentage()
     {
+        if (!\is_dir($this->_options['cache_dir'])) {
+            \mkdir($this->_options['cache_dir'], 0755, true);
+        }
         $free = disk_free_space($this->_options['cache_dir']);
         $total = disk_total_space($this->_options['cache_dir']);
         if ($total == 0) {
